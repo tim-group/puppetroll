@@ -1,13 +1,8 @@
 $: << "/opt/puppetroll/lib/"
 
 class MCollective::Application::Puppetroll<MCollective::Application
-  description "Rollout puppet changes centrally"
-  usage <<-END_OF_USAGE
-mco puppetroll [OPTIONS] [FILTERS]
-
-The ACTION can be one of the following:
-
-  END_OF_USAGE
+  description "rolls out puppet changes; fails if nodes fail to run puppet; respects ordering dependencies"
+  usage "mco puppetroll run <concurrency> -F domain=stag"
 
   require 'puppetroll'
   require 'puppetroll/client'
