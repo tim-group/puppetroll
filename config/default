@@ -1,0 +1,3 @@
+.+app.+->lb.+
+.+lb.+->routers.+
+.+proxy->lb->routers.+

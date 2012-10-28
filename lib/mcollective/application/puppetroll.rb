@@ -24,8 +24,9 @@ The ACTION can be one of the following:
     @mc = rpcclient("puppetd", :options => options)
     @mc.progress = false
     hosts = @mc.discover
+    rules = PuppetRoll.read_rules File.expand_path(File.dirname(__FILE__) + "/../../../config/default")
+    engine = PuppetRoll::Engine.new(configuration, rules,hosts, PuppetRoll::Client.new(hosts, @mc))
 
-    engine = PuppetRoll::Engine.new(configuration, [],hosts, PuppetRoll::Client.new(hosts, @mc))
     case configuration[:command]
     when "run"
       engine.execute()
