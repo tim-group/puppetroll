@@ -6,7 +6,7 @@ class MCollective::Application::Puppetroll<MCollective::Application
 mco puppetroll [OPTIONS] [FILTERS]
 
 The ACTION can be one of the following:
-  
+
   END_OF_USAGE
 
   require 'puppetroll'
@@ -24,7 +24,9 @@ The ACTION can be one of the following:
     @mc = rpcclient("puppetd", :options => options)
     @mc.progress = false
     hosts = @mc.discover
-    rules = PuppetRoll.read_rules File.expand_path(File.dirname(__FILE__) + "/../../../config/default")
+
+    this_file = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
+    rules = PuppetRoll.read_rules File.expand_path(File.dirname(this_file) + "/../../../config/default")
     engine = PuppetRoll::Engine.new(configuration, rules,hosts, PuppetRoll::Client.new(hosts, @mc))
 
     case configuration[:command]
