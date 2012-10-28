@@ -29,7 +29,9 @@ task :package do
     require 'fpm'
     require 'fpm/program'
     FileUtils.mkdir_p( "build/package/opt/puppetroll/" )
+    FileUtils.mkdir_p("build/package/usr/share/mcollective/plugins/mcollective/agent/")
     FileUtils.cp_r( "lib", "build/package/opt/puppetroll/" )
+    FileUtils.cp_r("lib/mcollective/agent/puppetroll.ddl", "build/package/usr/share/mcollective/plugins/mcollective/agent/")
 
     arguments = [
         "-p", "build/puppetroll.deb" ,
