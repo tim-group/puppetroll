@@ -63,7 +63,7 @@ class PuppetRoll::Engine
     counts = {}
     print "\n\n****\n\n"
     @graph.nodes.each {|node|
-      print "#{node.host} [#{node.state}]\n"
+      print "#{node.host} [#{node.state}] https://foreman.youdevise.com/hosts/#{node.host}/reports/last\n"
       if (counts[node.state]==nil)
         counts[node.state]=1
       else
