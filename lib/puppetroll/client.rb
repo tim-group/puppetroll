@@ -55,8 +55,6 @@ class PuppetRoll::Client
     @mc.discover :nodes=>nodes
     statuses = {}
 
-    print "RUNNING LAST_RUN_SUMMARY ON #{nodes} \n"
-
     @mc.last_run_summary.each do |node|
       on_error {
         statuses[node[:sender]] = "failed"
