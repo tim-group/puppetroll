@@ -31,7 +31,6 @@ task :package do
     FileUtils.mkdir_p( "build/package/opt/puppetroll/" )
     FileUtils.mkdir_p("build/package/usr/share/mcollective/plugins/mcollective/agent/")
     FileUtils.cp_r( "lib", "build/package/opt/puppetroll/" )
-    FileUtils.cp_r("build/package/usr/share/mcollective/plugins/mcollective/agent/")
     FileUtils.cp_r("config", "build/package/opt/puppetroll")
 
     arguments = [
