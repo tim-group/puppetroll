@@ -59,20 +59,36 @@ class PuppetRoll::Engine
     end
   end
 
+
   def report
+    pp get_report
+  end
+
+  def get_report
     counts = {}
-    print "\n\n****\n\n"
+    response = {
+      :nodes=>{},
+      :counts=>{}
+    }
+
     @graph.nodes.each {|node|
-      print "#{node.host} [#{node.state}] https://foreman.youdevise.com/hosts/#{node.host}/reports/last\n"
       if (counts[node.state]==nil)
         counts[node.state]=1
       else
         counts[node.state]+=1
       end
+      response[:nodes][node.host] = {
+        :state=>node.state,
+        :url=>"https://foreman.youdevise.com/hosts/#{node.host}/reports/last"
+      }
     }
+
     counts.each do |state, count|
-      print "#{state} => #{count} \n"
+      response[:counts][:state] = count
     end
+    response[:success] =  self.successful?
+
+    return response
   end
 
   def successful?
