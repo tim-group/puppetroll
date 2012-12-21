@@ -15,7 +15,16 @@ class PuppetRoll::Engine
     raise "statuses cannot be nil" if statuses == nil
     @graph.nodes.each do |node|
       status = statuses[node.host]
-      if (node.state =="new" and (status == "stopped" or status == "failed"))
+
+      if (node.state == "new" and status == "failed")
+        if node.been_in_state_for(60)
+          node.state= "failed"
+          PuppetRoll.log.error("#{node.host} was in failed state for too long, giving up")
+        end
+        next
+      end
+
+      if (node.state =="new" and status == "stopped")
         PuppetRoll.log.info("progressing #{node.host} from new->queued\n")
         node.state = "queued"
       end

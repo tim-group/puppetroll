@@ -59,6 +59,9 @@ class PuppetRoll::Client
       on_error {
         statuses[node[:sender]] = "failed"
       }.otherwise_execute {
+
+        pp node
+
         validate_not_nil(node, [:data,:resources,"failed"])
         statuses[node[:sender]] = node[:data][:resources]["failed"] >0?"failed":"passed"
       }
