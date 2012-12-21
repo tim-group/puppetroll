@@ -15,14 +15,14 @@ class PuppetRoll::Engine
     raise "statuses cannot be nil" if statuses == nil
     @graph.nodes.each do |node|
       status = statuses[node.host]
+      if (node.state =="new" and (status == "stopped" or status == "failed"))
+        PuppetRoll.log.info("progressing #{node.host} from new->queued\n")
+        node.state = "queued"
+      end
+
       if (node.state == "new" and status != "stopped")
         PuppetRoll.log.info("cannot run puppet on #{node.host} because it's status is: #{status}\n")
         node.state = "failed"
-      end
-
-      if (node.state =="new" and status == "stopped")
-        PuppetRoll.log.info("progressing #{node.host} from new->queued\n")
-        node.state = "queued"
       end
 
       if (node.state == "running" and status == "stopped")
