@@ -42,7 +42,7 @@ task :package do
         "-t", 'deb' ,
         "-s", 'dir' ,
         "--description", "An MCollective application that provides automated triggering of puppet runs via the puppetd agent." ,
-        "--url", "http://git.youdevise.com/gitweb/?p=puppetroll.git",
+        "--url", "https://github.com/youdevise/puppetroll",
         "-C" ,'build/package'
     ]
 
