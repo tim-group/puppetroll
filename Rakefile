@@ -34,7 +34,7 @@ task :package do
     FileUtils.cp_r("config", "build/package/opt/puppetroll")
 
     arguments = [
-        "-p", "build/puppetroll.deb" ,
+        "-p", "build/puppetroll_1.#{ENV['BUILD_NUMBER']}_all.deb" ,
         "-n" ,"puppetroll" ,
         "-v" ,"1.#{ENV['BUILD_NUMBER']}" ,
         "-m" ,"David Ellis <david.ellis@timgroup.com>" ,
